@@ -54,6 +54,9 @@ function getArea(shape: Shape) {
         return shape.sideLength ** 2;
     } else if (shape.kind === "hexagon") {
         return (3 * Math.sqrt(3) * shape.sideLength ** 2) / 2;
+    } else {
+        const _exhaustiveCheck: never = shape;
+        return _exhaustiveCheck;
     }
 }
 
