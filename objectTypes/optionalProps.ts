@@ -24,17 +24,3 @@ function paintShapeWithOptionalParamsWithDefaults({ shape, xPos = 0, yPos = 0 }:
     xPos;   // Type is number
     yPos;   // Type is number
 }
-
-// Tesing ?? operator
-function paintShapeWithDefaultsTest(opts: unknown) {
-    if (typeof opts === 'object' && opts && "xPos" in opts && "yPos" in opts) {
-        const xPos = opts.xPos ?? 1;  // Type is number
-        const yPos = opts.yPos ?? 1;  // Type is number
-        console.log(`opts.xPos = ${opts.xPos}, opts.yPos = ${opts.yPos}`);
-        console.log(`xPos = ${xPos}, yPos = ${yPos}`);
-    }
-}
-
-// const po: PaintOptions = { shape: 'circle', xPos: null, yPos: 10 };
-// console.log(paintShapeWithDefaultsTest(po));
-console.log(paintShapeWithDefaultsTest([]));
