@@ -8,10 +8,10 @@ function getVals(obj: unknown) {
     return toPrint;
 }
 
-let obj: any = { a: 1, b: 2, c: 3 };
+// let obj: any = { a: 1, b: 2, c: 3 };
 // let obj: any = "asdf";   //! Error
 // let obj: any = null;  //! Error
-// let obj: any = {};
+let obj: any = {};
 
 for (let prop of getVals(obj)) {
     console.log(prop);
