@@ -42,6 +42,7 @@ function convertQueryString(str: string): OutputType {
 
     return output;
 
+    /**Removes starting question mark */
     function removePrefixedQuestionMark(str: string): string {
         return str.substring(1);
     }
