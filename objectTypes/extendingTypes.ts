@@ -1,5 +1,6 @@
 //? EXTENDING TYPES ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
+// Example 1: Extending object types with interface
 interface BasicAddress {
     name?: string;
     street: string;
@@ -16,14 +17,12 @@ interface CompanyAddress extends BasicAddress {
     companyName: string;
 }
 
-// Dictionary of addresses only
-interface AddressDictionary {
-    [index: string]: AddressWithUnit | CompanyAddress;
-    home: AddressWithUnit;
-    work: CompanyAddress;
-}
+// Example 2: Extending object types with type intersection
 
-const addressDictionary: AddressDictionary = {
-    home: { street: "123", city: "London", country: "UK", postalCode: "SW12", unit: "1" },
-    work: { street: "456", city: "London", country: "UK", postalCode: "SW12", companyName: "Microsoft" }
-};
+type AddressWithUnitType = BasicAddress & { unit: string };
+type CompanyAddressType = BasicAddress & { companyName: string };
+
+/*
+    Interface vs Intersection Type
+    - The principal difference between the two is how conflicts are handled when an object literal implements multiple types that have overlapping properties.
+*/
