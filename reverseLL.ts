@@ -1,23 +1,28 @@
 //? REVERSE A LINKED LIST ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 
-interface NodeLL {
-    value: number;
-    next: NodeLL | null;
+interface NodeLL<T extends string | number> {
+    value: T;
+    next: NodeLL<T> | null;
 }
 
-function createLL() {
-    const firstNode: NodeLL = { value: 1, next: null };
-    let prevNode: NodeLL = firstNode;
-    for (let i = 2; i < 11; i++) {
-        const llNode: NodeLL = { value: i, next: null };
-        prevNode.next = llNode;
-        prevNode = llNode;
+function createLL<T extends string | number>(array: T[]) {
+    const firstNode: NodeLL<T> = {
+        value: array[0],
+        next: null
+    };
+    let currentNode: NodeLL<T> = firstNode;
+    for (let i = 1; i < array.length; i++) {
+        currentNode.next = {
+            value: array[i],
+            next: null
+        };
+        currentNode = currentNode.next;
     }
     return firstNode;
 }
 
-function consoleLogLL(node: NodeLL | null) {
-    const values: number[] = [];
+function consoleLogLL<T extends number | string>(node: NodeLL<T> | null) {
+    const values: T[] = [];
 
     while (node) {
         values.push(node.value);
@@ -26,11 +31,11 @@ function consoleLogLL(node: NodeLL | null) {
     console.log(values.join(' -> ') + " -> " + "null");
 }
 
-function reverseLL(node: NodeLL) {
+function reverseLL<T extends string | number>(node: NodeLL<T>) {
     return reverseLLInner(null, node);
-    function reverseLLInner(firstNode: NodeLL | null, secondNode: NodeLL) {
+    function reverseLLInner(firstNode: NodeLL<T> | null, secondNode: NodeLL<T>) {
         if (secondNode.next) {
-            const temp: NodeLL = secondNode.next;
+            const temp: NodeLL<T> = secondNode.next;
             secondNode.next = firstNode;
             return reverseLLInner(secondNode, temp);
         } else {
@@ -39,9 +44,10 @@ function reverseLL(node: NodeLL) {
         }
     }
 }
-const ll: NodeLL = createLL();
+
+const ll: NodeLL<number> = createLL([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 console.log("Linked List:");
 consoleLogLL(ll);
-const reversedLL: NodeLL = reverseLL(ll);
+const reversedLL: NodeLL<number> = reverseLL(ll);
 console.log("\nReversed Linked List:");
 consoleLogLL(reversedLL);
