@@ -9,7 +9,7 @@ const myArray: StringArrayOrDict = { 0: "Bob", 1: "Fred", "2": "John" };
 const myArray2: StringArrayOrDict = ["Bob", "Fred"];    //* Also valid
 console.log("Example 1");
 console.log(myArray[1]);
-console.log(myArray["1"]);
+console.log(myArray["1"]);  //* Indexing with a string is possible, but the string's value must be a number.
 console.log(myArray2[1]);
 console.log(myArray2["1"]);
 
@@ -19,7 +19,7 @@ interface Dict {
 }
 
 const myDict: Dict = { "a": "Bob", "b": "Fred", 8: "John" };
-// const myArray3: Dict = ["Bob", "Fred"];    //! Error: Index signature for type string is missing in type 'string'.
+// const myArray3: Dict = ["Bob", "Fred"];    //! Error: Index signature for type string is missing in type 'string'. (index signature of number needed for arrays)
 console.log("\nExample 2");
 console.log(myDict["a"]);
 console.log(myDict[8]);
@@ -45,6 +45,7 @@ console.log(myDict2["8"]);
 /*
     - The type returned from a numeric indexer must be the same type or a subtype of the type returned from the string indexer.
     - This is because when indexing with a number, JavaScript will actually convert that to a string before indexing into an object.
+    - So the number idex type must be assignable to the string index type.
 */
 
 // Example 5
