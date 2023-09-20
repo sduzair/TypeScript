@@ -1,3 +1,5 @@
+//? ANY AND UNKNOWN ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+
 type Foo = { a: number; b?: { d?: number; }; };
 
 function doSomethingWithUnknown(foo: unknown) {
