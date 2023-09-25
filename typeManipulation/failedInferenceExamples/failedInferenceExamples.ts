@@ -167,3 +167,22 @@ function createLLExample5(type: string | number) {
 const ll5: NodeLL<number> = createLLExample5(2);    // Unexpected Failure as NodeLL<string> is returned.
 
 ll5.value.toExponential();  //! Runtime Error: ll5.value.toExponential is not a function
+
+// Example 6 - Inference using Conditional Types
+type NumberNodeLL = {
+    value: number,
+    next: NumberNodeLL | null,
+};
+
+type StringNodeLL = {
+    value: string,
+    next: StringNodeLL | null,
+};
+
+type ReturnNodeLL<T extends string | number> = T extends string ? StringNodeLL : NumberNodeLL;
+
+function createLLExample6<T extends string | number>(type: T): ReturnNodeLL<T> {
+    throw "Not implemented!";
+}
+
+const ll6: NumberNodeLL = createLLExample6(2);
