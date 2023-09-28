@@ -4,10 +4,10 @@ function identity<T>(arg: T): T {
     return arg;
 }
 
-// Inline type annotation of generic type:
+// Inline type annotation of generic function:
 const myIdentity: <T>(arg: T) => T = identity;
 
-// We can also write the generic type as a call signature of an object literal type:
+// We can also write the generic type annotation as a call signature of an object literal type:
 const myIdentity2: { <T>(arg: T): T } = identity;
 
 // We can also write the generic type as a call signature of an interface:
@@ -17,9 +17,10 @@ interface GenericIdentityFn {
 
 const myIdentity3: GenericIdentityFn = identity;
 
-// We can also write the generic type as a call signature of an interface with a different name:
+// We can also write the generic type as a call signature of an interface with a generic parameter:
 interface GenericIdentityFn2<T> {
     (arg: T): T;
 }
 
-const myIdentity4: GenericIdentityFn2<number> = identity;
+const myidentity4: GenericIdentityFn2<number> = identity;
+myidentity4(5);
