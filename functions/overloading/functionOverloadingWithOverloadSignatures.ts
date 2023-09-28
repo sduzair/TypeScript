@@ -16,12 +16,12 @@ const a2 = makeDateExample(5, 5, 5);
 
 
 // Implementation Signature Problem
-const a3 = makeDateExample(2, 3);   //! Error because the Implementation signature or signature used to write the function body can’t be “seen” from the outside.
+// const a3 = makeDateExample(2, 3);   //! Error because the Implementation signature or signature used to write the function body can’t be “seen” from the outside.
 
 
 // Example 2: Incompatible Implementation Signature Problem
 function makeDateExample2(timestamp: number): Date;
-function makeDateExample2(timestamp: string): Date;     //! Error: Overload signature is not compatible with implementation signature
+// function makeDateExample2(timestamp: string): Date;     //! Error: Overload signature is not compatible with implementation signature
 function makeDateExample2(timestamp: number): Date {
     if (typeof timestamp === 'number') {
         return new Date(timestamp);
