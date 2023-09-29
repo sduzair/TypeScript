@@ -42,6 +42,7 @@ interface Email {
 };
 
 type Str = MessageOf<Email>;    // string
+//   ^?
 
 // Example 4: Conditional Type Constraints - MessageOf 'any and all' Type
 type MessageOfAnyAndAll<T> = T extends { message: unknown } ? T["message"] : never;
