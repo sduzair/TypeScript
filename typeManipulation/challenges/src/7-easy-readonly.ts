@@ -32,23 +32,21 @@
 /* _____________ Your Code Here _____________ */
 
 type MyReadonly<T> = {
-  +readonly [TKey in keyof T]: T[TKey]
-}
+  +readonly [TKey in keyof T]: T[TKey];
+};
 
 /* _____________ Test Cases _____________ */
-import type { Equal, Expect } from '@type-challenges/utils'
+import type { Equal, Expect } from "@type-challenges/utils";
 
-type cases = [
-  Expect<Equal<MyReadonly<Todo1>, Readonly<Todo1>>>,
-]
+type cases = [Expect<Equal<MyReadonly<Todo1>, Readonly<Todo1>>>];
 
 interface Todo1 {
-  title: string
-  description: string
-  completed: boolean
+  title: string;
+  description: string;
+  completed: boolean;
   meta: {
-    author: string
-  }
+    author: string;
+  };
 }
 
 const todo: MyReadonly<Todo1> = {
@@ -56,8 +54,8 @@ const todo: MyReadonly<Todo1> = {
   description: "Grocery",
   completed: false,
   meta: {
-    author: "Me"
-  }
+    author: "Me",
+  },
 };
 
 //! readonly not nested
