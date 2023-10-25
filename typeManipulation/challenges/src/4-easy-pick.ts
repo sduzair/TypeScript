@@ -32,32 +32,32 @@
 /* _____________ Your Code Here _____________ */
 
 type MyPick<T, K extends keyof T> = {
-  [TKey in keyof T as TKey extends K ? TKey : never]: T[TKey]
-}
+  [TKey in keyof T as TKey extends K ? TKey : never]: T[TKey];
+};
 
 /* _____________ Test Cases _____________ */
-import type { Equal, Expect } from '@type-challenges/utils'
+import type { Equal, Expect } from "@type-challenges/utils";
 
 type cases = [
-  Expect<Equal<Expected1, MyPick<Todo, 'title'>>>,
-  Expect<Equal<Expected2, MyPick<Todo, 'title' | 'completed'>>>,
-  // @ts-expect-error
-  MyPick<Todo, 'title' | 'completed' | 'invalid'>,
-]
+  Expect<Equal<Expected1, MyPick<Todo, "title">>>,
+  Expect<Equal<Expected2, MyPick<Todo, "title" | "completed">>>,
+  // @ts-expect-error 'invalid' should not be accepted
+  MyPick<Todo, "title" | "completed" | "invalid">,
+];
 
 interface Todo {
-  title: string
-  description: string
-  completed: boolean
+  title: string;
+  description: string;
+  completed: boolean;
 }
 
 interface Expected1 {
-  title: string
+  title: string;
 }
 
 interface Expected2 {
-  title: string
-  completed: boolean
+  title: string;
+  completed: boolean;
 }
 
 /* _____________ Further Steps _____________ */
