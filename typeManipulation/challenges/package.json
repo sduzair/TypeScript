@@ -1,0 +1,18 @@
+{
+  "name": "challenges",
+  "description": "",
+  "packageManager": "yarn@3.6.4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "tsconfig": "tsc --init"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@type-challenges/utils": "^0.1.1"
+  }
+}
