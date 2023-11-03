@@ -40,8 +40,8 @@ function getRolePermissions(role: roles) {
 }
 
 const perms = getRolePermissions("admin");
-if (perms.type !== "admin") throw new Error("Expected admin");
 
+if (perms.type !== "admin") throw new Error("Expected admin");
 perms.viewerReads; // Valid, Type of `perms`: const perms: { type: "admin"; read: boolean; write: boolean; delete: boolean; purge: boolean; viewerReads?: undefined; }
 
 // Merits
@@ -56,26 +56,27 @@ perms.viewerReads; // Valid, Type of `perms`: const perms: { type: "admin"; read
 
 // EXAMPLE 2: USING RETURN TYPE
 interface RolePermissions {
+  type: roles;
   read: boolean;
   write: boolean;
   delete: boolean;
 }
 
-interface TRolePermissions extends RolePermissions {
-  type: roles;
-}
-
-interface AdminRolePermissions extends TRolePermissions {
+interface AdminRolePermissions extends RolePermissions {
+  type: "admin";
   purge: boolean;
 }
 
-interface EditorRolePermissions extends TRolePermissions {}
+interface EditorRolePermissions extends RolePermissions {
+  type: "editor";
+}
 
-interface ViewerRolePermissions extends TRolePermissions {
+interface ViewerRolePermissions extends RolePermissions {
+  type: "viewer";
   viewerReads: number;
 }
 
-function getRolePermissionsWithReturnType(role: roles): TRolePermissions {
+function getRolePermissionsWithReturnType(role: roles): RolePermissions {
   switch (role) {
     case "admin":
       const permsAdmin: AdminRolePermissions = {
@@ -96,7 +97,7 @@ function getRolePermissionsWithReturnType(role: roles): TRolePermissions {
       return permsEditor;
     case "viewer":
       //! The appropriate return type is `ViewerRolePermissions` but we are returning `TRolePermissions` instead to demonstrate problems with casting (`as` keyword)
-      const permsViewer: TRolePermissions = {
+      const permsViewer: RolePermissions = {
         type: role,
         read: true,
         write: false,
@@ -112,18 +113,17 @@ function getRolePermissionsWithReturnType(role: roles): TRolePermissions {
 const viewerPerms = getRolePermissionsWithReturnType(
   "viewer"
 ) as ViewerRolePermissions;
-viewerPerms.viewerReads; // Valid though `viewerReads` is not available
+viewerPerms.viewerReads; // Valid TypeScript though `viewerReads` is not available
 
 // Merits
 // - Guidance on what the return type is
 // - What is returned has to match the return type shape or get static type checking errors within the function
 // - Conforms to the principle of Intention Revealing Interfaces by specifying the return type
-// - Only the properties of the parent return type are available (represented by the return type) initially, before casting the type
 
 // Demerits
 // - Need to cast return type to get access to all members of the return type (use of `as` keyword)
-//  - Casting behaves normally for languages like Java, C# etc. but not for typescript
-//  - Casting may be incorrect as is the case here and this is not revealed in static type checking nor in runtime as typchecking is not possible for non primitive typescript types in runtime
+//  - Casting behaves normally for nominal typing languages like Java, C# etc. but not for typescript
+//  - Casting may be incorrect as is the case here and this is not revealed in runtime as typchecking is not possible for non primitive typescript types in runtime
 
 // EXAMPLE 3: USING DISCRIMINATED UNION RETURN TYPE
 function getRolePermissionsWithDiscriminatedUnionReturnType<T extends roles>(
@@ -132,7 +132,7 @@ function getRolePermissionsWithDiscriminatedUnionReturnType<T extends roles>(
   switch (role) {
     case "admin":
       return {
-        type: "admin" as const,
+        type: "admin",
         read: true,
         write: true,
         delete: true,
@@ -140,14 +140,14 @@ function getRolePermissionsWithDiscriminatedUnionReturnType<T extends roles>(
       };
     case "editor":
       return {
-        type: "editor" as const,
+        type: "editor",
         read: true,
         write: true,
         delete: false,
       };
     case "viewer":
       return {
-        type: "viewer" as const,
+        type: "viewer",
         read: true,
         write: false,
         delete: false,
@@ -161,7 +161,7 @@ function getRolePermissionsWithDiscriminatedUnionReturnType<T extends roles>(
 
 const permsWithDiscriminatedUnionReturnType =
   getRolePermissionsWithDiscriminatedUnionReturnType("admin");
-if (permsWithDiscriminatedUnionReturnType.type !== "admin") throw new Error();
 
+if (permsWithDiscriminatedUnionReturnType.type !== "admin") throw new Error();
 ///@ts-expect-error
 permsWithDiscriminatedUnionReturnType.viewerReads; // Type is narrowed to "admin" so `viewerReads` property is not available and gives a static type checking error
