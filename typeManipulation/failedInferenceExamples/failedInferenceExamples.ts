@@ -37,7 +37,8 @@ function createLLExample1(type: string | number) {
 type Example1 = (arg: string | number) => NodeLL<number> | NodeLL<string>;
 const createLLExample1Type: Example1 = createLLExample1;
 
-// const ll1: NodeLL<number> = createLLExample1(2); //! Error: Type 'NodeLL<number> | NodeLL<string>' is not assignable to type 'NodeLL<number>'.
+// @ts-expect-error
+const ll1: NodeLL<number> = createLLExample1(2); //! Error: Type 'NodeLL<number> | NodeLL<string>' is not assignable to type 'NodeLL<number>'.
 
 /*
     - We know based on the implementation that the return type is NodeLL<number> when the parameter is a number and NodeLL<string> when the parameter is a string.
@@ -76,7 +77,8 @@ function createLLExample2<T extends string | number>(type: T) {
 type Example2 = <T extends string | number>(arg: T) => NodeLL<string> | NodeLL<number>;
 const createLLExample2Type: Example2 = createLLExample2;
 
-// const ll2: NodeLL<number> = createLLExample2(2); //! Error: Type 'NodeLL<number> | NodeLL<string>' is not assignable to type 'NodeLL<number>'.
+// @ts-expect-error
+const ll2: NodeLL<number> = createLLExample2(2); //! Error: Type 'NodeLL<number> | NodeLL<string>' is not assignable to type 'NodeLL<number>'.
 
 /*
     - It looks at createLLExample(1/2)'s implementation, and from the two returns it infers the return type is NodeLL<string> | NodeLL<number>.

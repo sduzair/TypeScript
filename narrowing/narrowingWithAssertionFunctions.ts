@@ -7,6 +7,7 @@ function yellWithoutAssertFunction(str) {   // str: any
 
 function yellWithAssertFunction(str) {
     assert(typeof str === "string");
+    // @ts-expect-error
     return str.toUppercase();
     //         ~~~~~~~~~~~
     // error: Property 'toUppercase' does not exist on type 'string'.
@@ -28,6 +29,7 @@ function assert(condition: any, msg?: string): asserts condition {
 // Assertion Signature Type 2
 function yellWithAssertFunctionType2(str) {
     assertIsString(str);
+    // @ts-expect-error
     return str.toUppercase();
     //         ~~~~~~~~~~~
     // error: Property 'toUppercase' does not exist on type 'string'.
@@ -43,5 +45,5 @@ function assertIsString(val: any): asserts val is string {
 
 /*
     - This type of assertion signature doesn’t check for a condition, but instead tells TypeScript that a specific variable or property has a type.
-    - These assertion signatures are very similar to writing type predicate signatures.
-*/
+        - These assertion signatures are very similar to writing type predicate signatures.
+    */
