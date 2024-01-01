@@ -31,6 +31,10 @@ const obj = {
 
 type PropertyTypes = typeof obj[keyof typeof obj];
 
+// Alternatively
+type ValueOf<T> = T[keyof T];
+type PropertyTypes2 = ValueOf<typeof obj>;
+
 // Example 5
 const myArray = [
     { name: "Alice", age: 15 },
@@ -48,3 +52,19 @@ type Age2 = Employee["age"];  // type Age2 = number
 
 type key = "age";
 type Age4 = Employee[key];  // type Age4 = number
+
+// Example 6
+
+interface Employee2 {
+    [key: string]: string | number;
+}
+
+declare const person2: Employee2;
+
+person2.name;   // index signatures hide potential undefined property errors
+
+/**
+ * To deal with potential undefined property errors while accessing an object with an index signature, you can use the 
+ * "noUncheckedIndexedAccess" compiler option and set it to `true`. This requires you to access the object with an index 
+ * and deal with the possibility of undefined.
+ */
