@@ -8,14 +8,14 @@
 
 // Problem
 function printAllWithoutNarrowingDownFromNull(strs?: string | string[] | null) {
-    if (typeof strs === "object") {
-        for (const s of strs) {     //! type error because strs is possibly null
-            console.log(s);
+if (typeof strs === "object") {
+for (const s of strs) {     //! type error because strs is possibly null
+console.log(s);
         }
     }
     if (typeof strs === "string") {
-        console.log(strs);
-    }
+console.log(strs);
+}
 }
 
 let words: string[] = null;
@@ -43,3 +43,14 @@ function printAllNarrowingDownFromNullWithTruthinessNarrowing(strs?: string | st
     - "Truthiness narrowing" coerces strs param to boolean in if condition and narrows down to a set of values that cannot be coerced to false like null, undefined, 0, NaN, "".  
     - Combined with type guard, we can narrow down to string[].
 */
+
+// 'undefined' truthiness
+function isUndefinedFalse(val: undefined) {
+    if (val == true) {
+        console.log("🚀 ~ isUndefinedFalse ~ val: true")
+    } else {
+        console.log("🚀 ~ isUndefinedFalse ~ val: false")
+    }
+}
+
+isUndefinedFalse(undefined);
