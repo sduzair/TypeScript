@@ -2,8 +2,8 @@
  * @description Generators iterate over values sequentially processing them lazily.
  */
 
-function* numbers(start = 1) {
-  while (true) {
+function* numbers(start = 1, end = 10) {
+  while (start <= end) {
     yield start;
     start++;
   }
@@ -37,9 +37,31 @@ function* mapGen<T>(iterator: Iterator<T>, lambda: { (e: T): unknown }) {
   }
 }
 
-const evenNums = filterGen(numbers(), e => e % 2 === 0);
+const NUMBERS = 10_000_000;
+
+const evenNums = filterGen(numbers(1, NUMBERS), e => e % 2 === 0);
 const evenNumsMapped = mapGen(evenNums, e => ({ value: e, isEven: true }))
 
-for (let val of evenNumsMapped) {
-  console.log("🚀 ~ val:", val)
-}
+// for (let val of evenNumsMapped) {
+//   console.log("🚀 ~ val:", val)
+// }
+
+// Performance
+Deno.bench({
+  name: "Iterator test",
+  fn() {
+    for (let val of evenNumsMapped) {
+      // console.log("🚀 ~ val:", val)
+      val;
+    }
+  },
+});
+
+Deno.bench({
+  name: "Array method test",
+  fn() {
+    for (let val of [...numbers(1, NUMBERS)].filter(e => e % 2 === 0).map(e => ({ value: e, isEven: true }))) {
+      val
+    }
+  },
+});
