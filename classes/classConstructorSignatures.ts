@@ -12,6 +12,23 @@ class Point {
         this.x = x;
         this.y = y;
     }
+
+    move(x: number, y: number) {
+        this.moveX(x)
+        this.moveY(y)
+    }
+
+    moveX(x: number) {
+        this.x += x;
+    }
+
+    moveY(y: number) {
+        this.y += y;
+    }
+
+    isCentre(): boolean {
+        return this.x == 0 && this.y == 0
+    }
 }
 
 type PointInstance = InstanceType<typeof Point>     // =>
